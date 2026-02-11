@@ -12,4 +12,10 @@ To use the Binary File Reader you must type :
 ```-u [number]``` or ```--until [number]```      to display all the bytes before the byte at the specified index \
 ```-ul [number]``` or ```-until-line [number]``` to display all the bytes before the specified line \
 ```-f (--from) [number] -t (--to) [number]```    to display all the bytes between the two specified indices \
-```-ha``` or ```--hide-ascii```                  to display the binary content without the ASCII equivalents of the bytes 
+```-ha``` or ```--hide-ascii```                  to display the binary content without the ASCII equivalents of the bytes
+
+## Downloads
+
+| OS      | Download link |
+|---------|---------------|
+| Windows | [download for Windows](https://github.com/Gauthier-de-Lesquen/Binary-File-Reader/releases/tag/v1.0.0)|
