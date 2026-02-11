@@ -16,8 +16,8 @@ To use the Binary File Reader you must type :
 
 ## Downloads
 
-| OS      | Download link |
-|---------|---------------|
-| Windows | [download for Windows](https://github.com/Gauthier-de-Lesquen/Binary-File-Reader/releases/tag/v1.0.0-Win)|
-| Linux   | [download for Linux](https://github.com/Gauthier-de-Lesquen/Binary-File-Reader/releases/tag/v1.0.0-Linux)|
-| MacOS   | [not available yet](https://404.com)|
+| OS          | Download link |
+|------------ |---------------|
+| 🪟 Windows | [download for Windows](https://github.com/Gauthier-de-Lesquen/Binary-File-Reader/releases/tag/v1.0.0-Win)|
+| 🐧Linux    | [download for Linux](https://github.com/Gauthier-de-Lesquen/Binary-File-Reader/releases/tag/v1.0.0-Linux)|
+| 🍎 MacOS   | [not available yet](https://404.com)|
