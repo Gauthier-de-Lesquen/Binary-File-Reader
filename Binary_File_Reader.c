@@ -43,9 +43,9 @@ int main(int argc, char *argv[]) {
             printf("use the Binary File Reader like: [name you chose by compiling] <options> <file>\n");
             printf("The options can be :\n");
             printf("    -h or --help                      display the possible commands\n");
-            printf("    -x or --hexadecimal               display the bytes at hexadecimal format\n");
-            printf("    -b or --binary                    display the bytes at binary format\n");
-            printf("    -d or --decimal                   display the bytes at decimal format\n");
+            printf("    -x or --hexadecimal               display the bytes in hexadecimal format\n");
+            printf("    -b or --binary                    display the bytes in binary format\n");
+            printf("    -d or --decimal                   display the bytes in decimal format\n");
             printf("    -u <number> or --until <number>   display all the bytes before the byte at the specified index\n");
             printf("    -ul <num> or --until-line <num>   display all the lines before the line at the specified index\n");
             printf("    -f(--from) <num> -t(--to) <num>   display all the bytes fom the fist index to the second\n");
