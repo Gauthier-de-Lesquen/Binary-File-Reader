@@ -3,7 +3,7 @@
 
 ## How to use it ?
 To use the Binary File Reader you must type :
-```[name you chose by compiling] [arguments] [file] ```
+```[name you chose by compiling] [arguments] [file]```
 ### the arguments can be:
 ```-h``` or ```--help```                         to get help \
 ```-x``` or ```--hexadecimal```                  to display the bytes in hexadecimal notation \
