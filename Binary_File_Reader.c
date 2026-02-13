@@ -40,7 +40,7 @@ int main(int argc, char *argv[]) {
         }
         else if (strcmp(argv[i], "-h") == 0 || (strcmp(argv[i], "--help") == 0)) {
             a.help = 1;
-            printf("use the Binary File Reader like: [name you chose by compiling] <options> <file>\n");
+            printf("use the Binary File Reader like: rb <options> <file>\n");
             printf("The options can be :\n");
             printf("    -h or --help                      display the possible commands\n");
             printf("    -x or --hexadecimal               display the bytes in hexadecimal format\n");
@@ -50,12 +50,17 @@ int main(int argc, char *argv[]) {
             printf("    -ul <num> or --until-line <num>   display all the lines before the line at the specified index\n");
             printf("    -f(--from) <num> -t(--to) <num>   display all the bytes fom the fist index to the second\n");
             printf("    -ha or --hide-ascii               display the bytes without their ascii corespondants\n");
+	        printf("    -v or --version                   display the version of rb\n");
             exit(0);
         }
+	else if (strcmp(argv[i], "-v") == 0 || (strcmp(argv[i], "--version") == 0)) {
+	    printf("rb version 1.0.1\n");
+	    exit(0);
+	}
         else if (strcmp(argv[i], "-u") == 0 || (strcmp(argv[i], "--until") == 0)) {
 
-            if (i + 1 >= argc || !is_number(argv[i+1])) {
-                printf("Error: expecting valid integer after -u\n");
+            if (i + 1 >= argc || !is_number(argv[i+1])) { //check if -u is followed by a number
+                printf("rb: Error: expecting valid integer after -u\n");
                 exit(1);
             }
 
@@ -65,7 +70,7 @@ int main(int argc, char *argv[]) {
         else if (strcmp(argv[i], "-ul") == 0 || (strcmp(argv[i], "--until-line") == 0)) {
 
             if (i + 1 >= argc || !is_number(argv[i+1])) {
-                printf("Error: expecting valid integer after -ul\n");
+                printf("rb: Error: expecting valid integer after -ul\n");
                 exit(1);
             }
 
@@ -75,7 +80,7 @@ int main(int argc, char *argv[]) {
         else if (strcmp(argv[i], "-f") == 0 || (strcmp(argv[i], "--from") == 0)) {
 
             if (i + 1 >= argc || !is_number(argv[i+1])) {
-                printf("Error: expecting valid integer after -f\n");
+                printf("rb: Error: expecting valid integer after -f\n");
                 exit(1);
             }
 
@@ -85,52 +90,54 @@ int main(int argc, char *argv[]) {
         else if (strcmp(argv[i], "-t") == 0 || (strcmp(argv[i], "--to") == 0)) {
 
             if (i + 1 >= argc || !is_number(argv[i+1])) {
-                printf("Error: expecting valid integer after -t\n");
+                printf("rb: Error: expecting valid integer after -t\n");
                 exit(1);
             }
 
             a.to = (int)strtol(argv[i+1], NULL, 10);
             i++;
-        }         
-        else if (argv[i][0] != '-' && strchr(argv[i], '.') != NULL) {
+        }
+        else if (argv[i][0] != '-') {
             strcpy(a.file, argv[i]);
         }
         else {
-            printf("Syntax Error : invalid argument\n");
-            printf("Type  rb -h  to see the valid arguments");
+            printf("rb: Syntax Error : invalid argument\n");
+            printf("Type  rb -h  to see the valid arguments\n");
             exit(1);
         }
 
     }
 
+    //errors
     if (!a.from && a.to || a.from && !a.to) {
-        printf("Syntax Error : --from (-f) needs to be with --to (-t)\n");
-        exit(1); 
+        printf("rb: Syntax Error : --from (-f) needs to be with --to (-t)\n");
+        exit(1);
     }
 
     if (a.file[0] == '\0') {
-        printf("Syntax Error : you must specify a valid file name\n");
+        printf("rb: Syntax Error : you must specify a valid file name\n");
         exit(1);
     }
 
     int verif = a.hex + a.bin + a.dec;
     if (verif > 1) {
-        printf("Syntax Error : you must select only one byte display type");
+        printf("rb: Syntax Error : you must select only one byte display type\n");
         exit(1);
     }
     if (verif == 0) {
         a.hex = 1;
     }
 
-    FILE *file = fopen(a.file, "rb");
+    // open file
+    FILE *file = fopen(a.file, "rb" /* open file as binary file*/);
     if (file == NULL) {
-        printf("Error: unable to read the specified file");
+        printf("rb: Fatal Error: unable to read the specified file\n");
         exit(1);
     }
     unsigned char buffer[16];
     int count = 0;
     int read;
-    int bytesPerLine = (a.hex || a.dec) ? 16 : 7;
+    int bytesPerLine = (a.bin) ? 7 : 16; // binary bytes are longer than hexadecimal or decimal bytes
 
     while ((read = fread(buffer, 1, bytesPerLine, file)) > 0) {
         for (int i = 0; i < read; i++) {
@@ -143,20 +150,20 @@ int main(int argc, char *argv[]) {
 
             if (a.hex) {
                 printf("%02X ", byte);
-            } 
+            }
             else if (a.bin) {
                 for (int j = 7; j >= 0; j--) {
                     printf("%d", (byte >> j) & 1);
                 }
                 printf(" ");
-            } 
+            }
             else if (a.dec) {
                 printf("%3d ", byte);
             }
         }
 
 
-         // Si l'option -h n'est pas activée, afficher l'ASCII à droite
+         // display ascii if -h
          if (!a.hid) {
             int padding = bytesPerLine - read;
             for (int p = 0; p < padding; p++) {
