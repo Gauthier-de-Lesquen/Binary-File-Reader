@@ -48,7 +48,7 @@ int main(int argc, char *argv[]) {
             exit(0);
         }
 	    else if (strcmp(argv[i], "-v") == 0 || (strcmp(argv[i], "--version") == 0)) {
-	        printf("rb version 1.0.1\n");
+	        printf("rb version 1.1.0\n");
 	        exit(0);
 	    }
         else if (strcmp(argv[i], "-u") == 0 || (strcmp(argv[i], "--until") == 0)) {
